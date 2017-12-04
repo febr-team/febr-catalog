@@ -1,1 +1,5 @@
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "Get Started" at https://bookdown.org/ for how to compile this example.
+# Repositório Brasileiro Livre para Dados Abertos do Solo - catálogo de dados
+
+Olá! Esse é o ambiente de desenvolvimento do *catálogo de dados* do Repositório Brasileiro Livre para Dados 
+Abertos do Solo, também conhecido como **febr**. Sinta-se à vontade para propor melhorias e estudar o código 
+fonte. Afinal de contas, o **febr** é um repositório livre!
