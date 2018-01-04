@@ -1,8 +1,17 @@
 i <- 4
 glue('# {id[i]} {{-}}') %>% cat()
 
-glue('## Descrição geral {{-}}') %>% cat()
-dts[[i]][-1, ] %>%
+glue("<h2 style='font-style:italic;'>{dts[[i]][2, 2] %>% as.character()}</h2>") %>% cat()
+
+glue("{dts[[i]][3, 2] %>% as.character()}") %>% cat()
+
+glue('## Autoria {{-}}') %>% cat()
+idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[i]][["item"]])
+dts[[i]][idx, ] %>% 
+  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+
+glue('## Informações gerais {{-}}') %>% cat()
+dts[[i]][-seq(3), ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
 # Localização

@@ -1,13 +1,34 @@
 ```{r, results='asis', echo=FALSE}
+# dataset_id
 glue('# {id[**i**]} {{-}}') %>% cat()
 ```
 
 ```{r, results='asis', echo=FALSE}
-glue('## Descrição geral {{-}}') %>% cat()
+# dataset_titulo
+glue("<h2 style='font-style:italic;'>{dts[[**i**]][2, 2] %>% as.character()}</h2>") %>% cat()
 ```
 
 ```{r, results='asis', echo=FALSE}
-dts[[**i**]][-1, ] %>%
+# dataset_descricao
+glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
+```
+
+```{r, results='asis', echo=FALSE}
+glue('## Autoria {{-}}') %>% cat()
+```
+
+```{r, results='asis', echo=FALSE}
+idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["item"]])
+dts[[**i**]][idx, ] %>% 
+  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+```
+
+```{r, results='asis', echo=FALSE}
+glue('## Informações gerais {{-}}') %>% cat()
+```
+
+```{r, results='asis', echo=FALSE}
+dts[[**i**]][-seq(3), ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 ```
 
