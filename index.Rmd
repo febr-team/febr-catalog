@@ -1,12 +1,14 @@
 --- 
-title: "Repositório Brasileiro Livre para Dados Abertos do Solo<br>Catálogo de Conjuntos de Dados"
+title: "febr -- Catálogo de Conjuntos de Dados"
 # subtitle: "Catálogo de Conjuntos de Dados"
 # author: "Equipe febr"
-date: "`r Sys.Date()`"
+# date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 github-repo: febr-team/febr-catalog
-description: "Catálogo dos conjuntos de dados disponíveis no febr"
+# description: "Catálogo dos conjuntos de dados disponíveis no febr"
+description: "Repositório Brasileiro Livre para Dados Abertos do Solo"
+# url: http://www.ufsm.br/febr/
 ---
 
 ```{r, eval=FALSE}
@@ -36,7 +38,9 @@ library(sp)
 library(mapview)
 ```
 
-# Apresentação {-}
+# Instruções de uso {-}
+
+Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis.
 
 ```{r, echo=FALSE}
 # dts <- datasets(dataset = 'all')
