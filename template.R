@@ -11,7 +11,13 @@ dts[[i]][idx, ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
 glue('## Informações gerais {{-}}') %>% cat()
-dts[[i]][-seq(3), ] %>%
+idx <- match(
+  c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url", "organizacao_pais_id", 
+    "organizacao_municipio_id", "organizacao_codigo_postal", "organizacao_rua_nome", "organizacao_rua_numero",
+    # "contribuidor_nome", "contribuidor_email", "contribuidor_organizacao", 
+    "categoria_vcge", "dataset_id", "dataset_titulo", "dataset_descricao"), 
+  dts[[i]][["item"]])
+dts[[i]][-idx, ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
 # Localização
