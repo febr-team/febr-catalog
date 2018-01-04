@@ -1,4 +1,21 @@
 book_filename: "febr-catalog"
+delete_merged_file: true
 language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabela '
+    eq: 'Equação '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definição '
+    cor: 'Corolário '
+    prp: 'Proposição '
+    exm: 'Exemplo '
+    exr: 'Exercício '
+    proof: 'Prova. '
+    remark: 'Lembrete. '
+    solution: 'Solução. '
   ui:
-    chapter_name: ""
+    edit: Editar
+    chapter_name: ''
+output_dir: "docs"

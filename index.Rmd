@@ -4,15 +4,21 @@ subtitle: "Catálogo de Conjuntos de Dados"
 author: "Equipe febr"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-lang: pt-br
-# documentclass: book
-# bibliography: [book.bib, packages.bib]
-# biblio-style: apalike
-# link-citations: yes
+output: bookdown::gitbook
+github-repo: febr-team/febr-catalog
 description: "Catálogo dos conjuntos de dados disponíveis no febr"
 ---
 
+```{r, eval=FALSE}
+# After building the book, edit line 162 in file 
+# '/home/alessandro/projects/web/febr-catalog/docs/libs/gitbook-2.6.7/js/plugin-bookdown.js'
+# Original: .css('background-color', bookBody.css('background-color'))
+# Edited: .css('background-color')
+```
+
 ```{r, echo=FALSE}
+library(knitr)
+knitr::opts_chunk$set(dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh')
 library(magrittr)
 library(pander)
 library(glue)
@@ -23,42 +29,26 @@ library(mapview)
 
 # Apresentação {-}
 
-
-```{r, results='asis', echo=FALSE}
-# dts <- datasets(progress = FALSE)
-# save(dts, file = "data/dts.rda")
+```{r, echo=FALSE}
+# dts <- datasets(dataset = 'all')
 # obs <- observations(dataset = 'all', missing.coords = 'keep', stack.obs = FALSE)
+# save(dts, file = "data/dts.rda")
 # save(obs, file = "data/obs.rda")
 load("data/dts.rda")
 load("data/obs.rda")
-j <- 1:10
+```
+
+```{r, echo=FALSE}
+j <- 1:length(dts)
+# j <- 1
 dts <- dts[j]
 obs <- obs[j]
-for (i in 1:length(dts)) {
-  i <- 1
-  id <- dts[[i]][1, 2] %>% as.character()
-  
-  glue('# {id} {{-}}') %>% print()
-  glue('## Descrição geral {{-}}') %>% print()
-
-  dts[[i]][-1, ] %>%
-    pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
-  
-  glue('## Distribuição espacial {{-}}') %>% print()
-  
-  n_obs <- nrow(obs[[i]])
-  n_coords <- length(!is.na(obs[[i]]$coord_x))
-  if (n_coords != 0) {
-    tmp <- obs[[i]]
-    coordinates(tmp) <- ~ coord_x + coord_y
-    proj4string(tmp) <- CRS("+init=epsg:4674")
-    m <- mapview(tmp, label = tmp$observacao_id, col.regions = "firebrick1", lwd = 1, col = "ivory")@map
-    if (n_coords != n_obs) {
-      m <- glue("{n_obs - n_coords} observações do conjunto de dados {id} não possuem coordenadas espaciais.")
-    }
-  } else {
-    glue("As observações do conjunto de dados {id} não possuem coordenadas espaciais.")
-  }
-  m
-}
+n <- length(dts)
+id <- sapply(dts, function (x) x[1, 2] %>% as.character())
 ```
+
+```{r, include=FALSE}
+src <- lapply(seq(n), function (i) knit_expand(file = "template.Rmarkdown", delim = c("**", "**")))
+```
+
+`r knit(text = unlist(src))`
