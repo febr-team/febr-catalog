@@ -1,7 +1,7 @@
 --- 
-title: "Repositório Brasileiro Livre para Dados Abertos do Solo"
-subtitle: "Catálogo de Conjuntos de Dados"
-author: "Equipe febr"
+title: "Repositório Brasileiro Livre para Dados Abertos do Solo<br>Catálogo de Conjuntos de Dados"
+# subtitle: "Catálogo de Conjuntos de Dados"
+# author: "Equipe febr"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -10,10 +10,19 @@ description: "Catálogo dos conjuntos de dados disponíveis no febr"
 ---
 
 ```{r, eval=FALSE}
-# After building the book, edit line 162 in file 
-# '/home/alessandro/projects/web/febr-catalog/docs/libs/gitbook-2.6.7/js/plugin-bookdown.js'
-# Original: .css('background-color', bookBody.css('background-color'))
-# Edited: .css('background-color')
+# AFTER BUILDING THE BOOK, EDIT FILE '/docs/libs/gitbook-2.6.7/js/plugin-bookdown.js' TO MAKE SURE THAT THE
+# SITE HEADING BACKGROUND COLOR IS CORRECT.
+js <- list.files(path = ".", recursive = TRUE)
+idx <- grepl(pattern = "/js/plugin-bookdown.js", x = js)
+file <- js[idx]
+js <- readLines(con = file)
+for (i in seq(length(js))) {
+  js[i] <- 
+    gsub(
+      pattern = ".css('background-color', bookBody.css('background-color'))", 
+      replacement = ".css('background-color')", x = js[i], fixed = TRUE)
+}
+writeLines(text = js, con = file)
 ```
 
 ```{r, echo=FALSE}
@@ -40,7 +49,7 @@ load("data/obs.rda")
 
 ```{r, echo=FALSE}
 j <- 1:length(dts)
-# j <- 1
+j <- 1:5
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)

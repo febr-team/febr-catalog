@@ -3,6 +3,7 @@ bookdown::gitbook:
   config:
     code_folding: hide
     toc:
+      collapse: section
       before: |
         <li><a href="./">Catálogo de Conjuntos de Dados</a></li>
       after: |
