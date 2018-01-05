@@ -1,39 +1,24 @@
 ```{r, results='asis'}
 # dataset_id
-glue('# {id[**i**]} {{-}}') %>% cat()
-```
+glue('# {id[**i**]} {{-}}  \n\n') %>% cat()
 
-```{r, results='asis'}
 # dataset_titulo
 glue("<h2 style='font-style:italic;'>{dts[[**i**]][2, 2] %>% as.character()}</h2>") %>% cat()
-```
 
-```{r, results='asis'}
 # dataset_descricao
 glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
-```
-
-```{r, results='asis'}
 link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[**i**]}')
 glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
   cat()
-```
 
-```{r, results='asis'}
-glue('## Autoria {{-}}') %>% cat()
-```
+glue('## Autoria {{-}}  \n\n') %>% cat()
 
-```{r, results='asis'}
 idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["item"]])
 dts[[**i**]][idx, ] %>% 
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
-```
 
-```{r, results='asis'}
-glue('## Informações gerais {{-}}') %>% cat()
-```
+glue('## Informações gerais {{-}}  \n\n') %>% cat()
 
-```{r, results='asis'}
 idx <- match(
   c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url", "organizacao_pais_id", 
     "organizacao_municipio_id", "organizacao_codigo_postal", "organizacao_rua_nome", "organizacao_rua_numero",
@@ -42,13 +27,9 @@ idx <- match(
   dts[[**i**]][["item"]])
 dts[[**i**]][-idx, ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
-```
 
-```{r, results='asis'}
-glue('## Localização {{-}}') %>% print()
-```
+glue('## Localização {{-}}  \n\n') %>% print()
 
-```{r, results='asis'}
 municipio_id <- obs[[**i**]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
 estado_id <- obs[[**i**]][, "estado_id"] %>% unique() %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, estado_id)) %>% 
@@ -82,10 +63,8 @@ m
 ```
 
 ```{r, results='asis'}
-glue('### Sugestões, Dúvidas e Reclamações {{-}}') %>% cat()
-```
+glue('### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
 
-```{r, results='asis'}
 glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder à sua mensagem em até 24 horas.') %>% cat()
 ```
 
