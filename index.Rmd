@@ -1,15 +1,13 @@
 --- 
 title: "febr -- Catálogo de Conjuntos de Dados"
-# subtitle: "Catálogo de Conjuntos de Dados"
-# author: "Equipe febr"
-# date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 subtitle: "Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis."
 output: bookdown::gitbook
 github-repo: febr-team/febr-catalog
-# description: "Catálogo dos conjuntos de dados disponíveis no febr"
-description: "Repositório Brasileiro Livre para Dados Abertos do Solo"
-# url: http://www.ufsm.br/febr/
+description: "Repositório Brasileiro Livre para Dados Abertos do Solo -- Catálogo de Conjuntos de Dados"
+url: http\://www.ufsm.br/febr/
+apple-touch-icon: "img/apple-touch-icon.png"
+favicon: "img/favicon.ico"
 ---
 
 ```{r, eval=FALSE}
@@ -24,6 +22,18 @@ for (i in seq(length(js))) {
     gsub(
       pattern = ".css('background-color', bookBody.css('background-color'))", 
       replacement = ".css('background-color')", x = js[i], fixed = TRUE)
+}
+writeLines(text = js, con = file)
+# AFTER BUILDING THE BOOK, EDIT FILE '/docs/libs/gitbook-2.6.7/js/plugin-search.js'
+js <- list.files(path = ".", recursive = TRUE)
+idx <- grepl(pattern = "/js/plugin-search.js", x = js)
+file <- js[idx]
+js <- readLines(con = file)
+for (i in seq(length(js))) {
+  js[i] <- 
+    gsub(
+      pattern = "'placeholder': 'Type to search'", 
+      replacement = "'placeholder': 'Escreva para pesquisar'", x = js[i], fixed = TRUE)
 }
 writeLines(text = js, con = file)
 ```
@@ -56,7 +66,8 @@ library(readr)
 library(googlesheets)
 ```
 
-```{r keys, include=FALSE}
+```{r, eval=FALSE}
+# Run this code chunk only when disk data must be updated!!!
 key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
 sheets_keys <- try(gs_key(key) %>% gs_read_csv(), TRUE)
 if (class(sheets_keys) == "try-error") {
@@ -65,20 +76,22 @@ if (class(sheets_keys) == "try-error") {
   download.file(url, destfile = tempfile)
   sheets_keys <- read_csv(tempfile)
 }
+save(sheets_keys, file = "data/sheets_keys.rda")
+dts <- datasets(dataset = 'all')
+obs <- observations(dataset = 'all', variable = "coord_desc", missing.coords = 'keep', stack.obs = FALSE)
+save(dts, file = "data/dts.rda")
+save(obs, file = "data/obs.rda")
 ```
 
 ```{r}
-# dts <- datasets(dataset = 'all')
-# obs <- observations(dataset = 'all', missing.coords = 'keep', stack.obs = FALSE)
-# save(dts, file = "data/dts.rda")
-# save(obs, file = "data/obs.rda")
+load("data/sheets_keys.rda")
 load("data/dts.rda")
 load("data/obs.rda")
 ```
 
 ```{r}
 j <- 1:length(dts)
-# j <- 1:5
+# j <- 40:45
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
