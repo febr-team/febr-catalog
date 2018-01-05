@@ -5,6 +5,10 @@ glue("<h2 style='font-style:italic;'>{dts[[i]][2, 2] %>% as.character()}</h2>") 
 
 glue("{dts[[i]][3, 2] %>% as.character()}") %>% cat()
 
+link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[i]}')
+glue('<form action="{link}"><input type="submit" value="Acessar dados" /></form>') %>% 
+  cat()
+
 glue('## Autoria {{-}}') %>% cat()
 idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[i]][["item"]])
 dts[[i]][idx, ] %>% 
