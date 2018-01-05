@@ -29,20 +29,35 @@ writeLines(text = js, con = file)
 
 ```{r, echo=FALSE}
 library(knitr)
-knitr::opts_chunk$set(dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh')
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh', echo = FALSE)
 library(magrittr)
 library(pander)
 library(glue)
 library(febr)
 library(sp)
 library(mapview)
+library(readr)
+library(googlesheets)
 ```
 
 # Instruções de uso {-}
 
 Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis.
 
-```{r, echo=FALSE}
+```{r keys}
+key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
+sheets_keys <- try(gs_key(key) %>% gs_read_csv(), TRUE)
+if (class(sheets_keys) == "try-error") {
+  url <- glue("https://docs.google.com/spreadsheets/d/{key}/export?format=csv")
+  tempfile <- tempfile(fileext = "cvs")
+  download.file(url, destfile = tempfile)
+  sheets_keys <- read_csv(tempfile)
+}
+```
+
+
+```{r}
 # dts <- datasets(dataset = 'all')
 # obs <- observations(dataset = 'all', missing.coords = 'keep', stack.obs = FALSE)
 # save(dts, file = "data/dts.rda")
