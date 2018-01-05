@@ -45,7 +45,7 @@ library(googlesheets)
 
 Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis.
 
-```{r keys}
+```{r keys, include=FALSE}
 key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
 sheets_keys <- try(gs_key(key) %>% gs_read_csv(), TRUE)
 if (class(sheets_keys) == "try-error") {
@@ -65,7 +65,7 @@ load("data/dts.rda")
 load("data/obs.rda")
 ```
 
-```{r, echo=FALSE}
+```{r}
 j <- 1:length(dts)
 j <- 1:5
 dts <- dts[j]

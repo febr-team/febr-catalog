@@ -1,39 +1,39 @@
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 # dataset_id
 glue('# {id[**i**]} {{-}}') %>% cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 # dataset_titulo
 glue("<h2 style='font-style:italic;'>{dts[[**i**]][2, 2] %>% as.character()}</h2>") %>% cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 # dataset_descricao
 glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[**i**]}')
 glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
   cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 glue('## Autoria {{-}}') %>% cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["item"]])
 dts[[**i**]][idx, ] %>% 
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 glue('## Informações gerais {{-}}') %>% cat()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 idx <- match(
   c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url", "organizacao_pais_id", 
     "organizacao_municipio_id", "organizacao_codigo_postal", "organizacao_rua_nome", "organizacao_rua_numero",
@@ -44,18 +44,18 @@ dts[[**i**]][-idx, ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 glue('## Localização {{-}}') %>% print()
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 municipio_id <- obs[[**i**]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
 estado_id <- obs[[**i**]][, "estado_id"] %>% unique() %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, estado_id)) %>% 
   pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r, results='asis'}
 n_obs <- nrow(obs[[**i**]])
 n_coords <- sum(!is.na(obs[[**i**]]$coord_x))
 if (n_coords != 0) {
