@@ -4,6 +4,7 @@ title: "febr -- Catálogo de Conjuntos de Dados"
 # author: "Equipe febr"
 # date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+subtitle: "Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis."
 output: bookdown::gitbook
 github-repo: febr-team/febr-catalog
 # description: "Catálogo dos conjuntos de dados disponíveis no febr"
@@ -27,8 +28,22 @@ for (i in seq(length(js))) {
 writeLines(text = js, con = file)
 ```
 
-```{r, echo=FALSE}
+# Instruções de uso {-}
+
+Exitem duas maneiras de navegar pelos conjuntos de dados disponíveis no ***febr***.
+
+Primeiro, você pode usar o índice de conjuntos de dados localizado na lateral esquerda da página. Aqui, cada conjunto de dados é identificado pelo seu código identificador único registrado no ***febr***. Você pode navegar pelos conjuntos de dados no próprio índice ou usando os botões de navegação exibidos à esquerda e direita do corpo da página. Caso você queira alternar a visibilidade do índice, basta pressionar o primeiro botão da barra de ferramentas (Figura \@ref(fig:toolbar)) -- você também pode pressionar a tecla `S` no teclado para obter o mesmo efeito.
+
+```{r toolbar, echo=FALSE, fig.align='center', fig.cap="Barra de ferramentas."}
 library(knitr)
+include_graphics('img/toolbar.png')
+```
+
+Para fazer buscas simples no catálogo, use o segundo botão da barra de ferramentas -- o atalho de teclado é `F` (do inglês *Find*). Quando o botão de busca for pressionado, você verá uma caixa de pesquisa aparecer na parte superior do índice. À medida que você digitar na caixa de pesquisa, o índice será filtrado de maneira a exibir os conjuntos de dados que correspondem ao termo usado na pesquisa. Feito isso, você pode usar as teclas de seta para cima e para baixo para destacar o próximo termo da pesquisa na página atual. Quando você pressionar novamente o botão de busca (ou a tecla `F` fora da caixa de pesquisa), o termo da pesquisa será apagado e a caixa de pesquisa será escondida.
+
+A barra de ferramentas possui outros dois botões. O primeiro deles serve para você configurar a fonte (tamanho e família) e o tema da página da maneira que mais lhe agradar. O último oferece a opção de edição, projetada para pessoas interessadas em contribuir no desenvolvimento do código fonte dessa página via [GitHub](https://github.com/febr-team).
+
+```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(
   dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh', echo = FALSE)
 library(magrittr)
@@ -40,10 +55,6 @@ library(mapview)
 library(readr)
 library(googlesheets)
 ```
-
-# Instruções de uso {-}
-
-Conheça detalhadamente as características de cada um dos conjuntos de dados abertos do solo. Saiba como os dados foram gerados e dê os devidos créditos às pessoas e instituições responsáveis.
 
 ```{r keys, include=FALSE}
 key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
@@ -67,7 +78,7 @@ load("data/obs.rda")
 
 ```{r}
 j <- 1:length(dts)
-j <- 1:5
+# j <- 1:5
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
