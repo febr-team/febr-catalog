@@ -56,7 +56,6 @@ if (class(sheets_keys) == "try-error") {
 }
 ```
 
-
 ```{r}
 # dts <- datasets(dataset = 'all')
 # obs <- observations(dataset = 'all', missing.coords = 'keep', stack.obs = FALSE)

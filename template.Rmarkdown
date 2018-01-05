@@ -17,9 +17,6 @@ glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
 link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[**i**]}')
 glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
   cat()
-# mailto <- glue('mailto:febr-forum@googlegroups.com?subject={id[**i**]}')
-# glue('<form action="{mailto}" target="_blank"><input type="submit" value="Relatar problema"/></form>') %>% 
-#   cat()
 ```
 
 ```{r, results='asis', echo=FALSE}
@@ -83,3 +80,12 @@ if (n_coords != 0) {
 }
 m
 ```
+
+```{r, results='asis'}
+glue('### Sugestões, Dúvidas e Reclamações {{-}}') %>% cat()
+```
+
+```{r, results='asis'}
+glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder à sua mensagem em até 24 horas.') %>% cat()
+```
+

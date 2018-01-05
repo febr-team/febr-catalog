@@ -6,7 +6,7 @@ glue("<h2 style='font-style:italic;'>{dts[[i]][2, 2] %>% as.character()}</h2>") 
 glue("{dts[[i]][3, 2] %>% as.character()}") %>% cat()
 
 link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[i]}')
-glue('<form action="{link}"><input type="submit" value="Acessar dados" /></form>') %>% 
+glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
   cat()
 
 glue('## Autoria {{-}}') %>% cat()
@@ -54,3 +54,6 @@ if (n_coords != 0) {
   m <- glue("As observações do conjunto de dados `{id[i]}` não possuem coordenadas espaciais.") %>% cat()
 }
 m
+
+glue('### Sugestões, Dúvidas e Reclamações {{-}}') %>% cat()
+glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder à sua mensagem em até 24 horas.') %>% cat()
