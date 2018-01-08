@@ -13,17 +13,17 @@ favicon: "img/favicon.ico"
 ```{r, eval=FALSE}
 # AFTER BUILDING THE BOOK, EDIT FILE '/docs/libs/gitbook-2.6.7/js/plugin-bookdown.js' TO MAKE SURE THAT THE
 # SITE HEADING BACKGROUND COLOR IS CORRECT.
-js <- list.files(path = ".", recursive = TRUE)
-idx <- grepl(pattern = "/js/plugin-bookdown.js", x = js)
-file <- js[idx]
-js <- readLines(con = file)
-for (i in seq(length(js))) {
-  js[i] <- 
-    gsub(
-      pattern = ".css('background-color', bookBody.css('background-color'))", 
-      replacement = ".css('background-color')", x = js[i], fixed = TRUE)
-}
-writeLines(text = js, con = file)
+# js <- list.files(path = ".", recursive = TRUE)
+# idx <- grepl(pattern = "/js/plugin-bookdown.js", x = js)
+# file <- js[idx]
+# js <- readLines(con = file)
+# for (i in seq(length(js))) {
+#   js[i] <- 
+#     gsub(
+#       pattern = ".css('background-color', bookBody.css('background-color'))", 
+#       replacement = ".css('background-color')", x = js[i], fixed = TRUE)
+# }
+# writeLines(text = js, con = file)
 # AFTER BUILDING THE BOOK, EDIT FILE '/docs/libs/gitbook-2.6.7/js/plugin-search.js'
 js <- list.files(path = ".", recursive = TRUE)
 idx <- grepl(pattern = "/js/plugin-search.js", x = js)
@@ -71,14 +71,14 @@ library(googlesheets)
 key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
 sheets_keys <- try(gs_key(key) %>% gs_read_csv(), TRUE)
 if (class(sheets_keys) == "try-error") {
-  url <- glue("https://docs.google.com/spreadsheets/d/{key}/export?format=csv")
+  url <- glue::glue("https://docs.google.com/spreadsheets/d/{key}/export?format=csv")
   tempfile <- tempfile(fileext = "cvs")
   download.file(url, destfile = tempfile)
-  sheets_keys <- read_csv(tempfile)
+  sheets_keys <- readr::read_csv(tempfile)
 }
 save(sheets_keys, file = "data/sheets_keys.rda")
-dts <- datasets(dataset = 'all')
-obs <- observations(dataset = 'all', variable = "coord_desc", missing.coords = 'keep', stack.obs = FALSE)
+dts <- febr::datasets(dataset = 'all')
+obs <- febr::observations(dataset = 'all', variable = "coord_desc", missing.coords = 'keep', stack.obs = FALSE)
 save(dts, file = "data/dts.rda")
 save(obs, file = "data/obs.rda")
 ```
