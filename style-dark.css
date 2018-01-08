@@ -1,0 +1,72 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+/* Set text page width */
+.book .book-body .page-wrapper .page-inner {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+}
+
+/* Set standard background and text color in book summary, and use bold + underline in active links */
+.book .book-summary {
+  background: #555555;
+  color: #999999;
+}
+.book .book-summary ul.summary li i.fa-check {
+  color: #999999;
+}
+.book .book-summary ul.summary li.done>a {
+  color: #999999;
+}
+.book .book-summary ul.summary li a,.book .book-summary ul.summary li span {
+  color: #999999;
+  background: #555555;
+}
+.book .book-summary ul.summary li a:hover,.book .book-summary ul.summary li.active>a{
+  background: #555555;
+  color: #eeeeee;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+/* Set background and text color in header */
+.book .book-header h1 {
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #555555;
+  color: #eeeeee;
+}
+.book .book-header.fixed {
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  background-color: #555555;
+  background: #555555;
+  color: #eeeeee;
+}
+
+/* Set background and text color in buttons */
+.book .book-header .btn {
+  background: #555555;
+  color: #999999;
+}
+.book .book-header .btn:hover {
+  background: #555555;
+  color: #eeeeee;
+}
