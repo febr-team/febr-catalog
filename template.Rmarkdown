@@ -65,6 +65,6 @@ m
 ```{r, results='asis'}
 glue('### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
 
-glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder à sua mensagem em até 24 horas.') %>% cat()
+glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder em até 24 horas.') %>% cat()
 ```
 
