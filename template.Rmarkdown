@@ -63,8 +63,17 @@ m
 ```
 
 ```{r, results='asis'}
-glue('### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
+glue('<hr>') %>% cat()
 
-glue('Por favor, sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder em até 24 horas.') %>% cat()
+glue('#### Melhorias e Correções {{-}}  \n\n') %>% cat()
+
+glue('Encontrou um problema ou erro nos dados? Acesse o conjunto de dados e proponha as melhorias e correções necessárias. Afinal de contas, o ___febr___ é um repositório livre de dados abertos!') %>% cat()
+
+glue('<hr>') %>% cat()
+
+glue('#### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
+
+glue('Você tem alguma sugestão, dúvida ou reclamação sobre o ___febr___? Sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder em até 24 horas.') %>% cat()
 ```
+<!-- Keep two lines empty -->
 
