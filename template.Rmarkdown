@@ -13,7 +13,7 @@ glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar 
 
 glue('## Autoria {{-}}  \n\n') %>% cat()
 
-idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["item"]])
+idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["campo"]])
 dts[[**i**]][idx, ] %>% 
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
@@ -24,7 +24,7 @@ idx <- match(
     "organizacao_municipio_id", "organizacao_codigo_postal", "organizacao_rua_nome", "organizacao_rua_numero",
     # "contribuidor_nome", "contribuidor_email", "contribuidor_organizacao", 
     "categoria_vcge", "dataset_id", "dataset_titulo", "dataset_descricao"), 
-  dts[[**i**]][["item"]])
+  dts[[**i**]][["campo"]])
 dts[[**i**]][-idx, ] %>%
   pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
