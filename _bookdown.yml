@@ -18,4 +18,4 @@ language:
   ui:
     edit: Editar
     chapter_name: ''
-output_dir: "docs"
+output_dir: "catalog"
