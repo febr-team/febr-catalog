@@ -111,7 +111,8 @@ p1 <- barchart(
   tmp_uf, border = "ivory", col = "firebrick1", xlab = "Percent of total", ylab = "Federative unit",
   xlim = c(0, extendrange(tmp_uf)[2])) + 
   layer(panel.grid(v = -1, h = -1))
-png("tmp/percent-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5)
+# png("tmp/percent-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5) # abstract
+png("tmp/percent-uf.png", width = 480 * 3.2, height = 480 * 2 * 3, res = 72 * 2.5 * 3) # poster
 p1
 dev.off()
 br <- shapefile("~/projects/brazil/states.shp")
@@ -126,7 +127,8 @@ p2 <-
     dens, border = "ivory", col = "firebrick1", xlab = "Areal density", ylab = " ", 
     xlim = c(0, extendrange(dens)[2])) + 
   layer(panel.grid(v = -1, h = -1))
-png("tmp/density-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5)
+# png("tmp/density-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5) # abstract
+png("tmp/density-uf.png", width = 480 * 3.2, height = 480 * 2 * 3, res = 72 * 2.5 * 3) # poster
 p2
 dev.off()
 ```
