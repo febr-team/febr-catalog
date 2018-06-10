@@ -88,9 +88,16 @@ dts <- febr::dataset(dataset = 'all')
 obs <- febr::observation(dataset = 'all', variable = "coord_desc")
 save(dts, file = "data/dts.rda")
 save(obs, file = "data/obs.rda")
+
+# Planilha com siglas e nomes dos estados brasileiros
+estado_id <-
+  gs_key('1bTIcFLpnOefYs_BaegPC59kbF3gEugOXpYpnfyrDsDQ') %>% 
+  gs_read_csv(verbose = FALSE)
+save(estado_id, file = 'data/estado_id.rda')
 ```
 
 ```{r}
+load('data/estado_id.rda')
 load("data/sheets_keys.rda")
 load("data/dts.rda")
 load("data/obs.rda")
