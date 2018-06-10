@@ -1,7 +1,7 @@
 # Este arquivo é usado apenas para testes. O arquivo usado para compilação das páginas é 'template.Rmarkdown'.
 # O conteúdo dos dos arquivos é idêntico, exceto pelo índice 'i', que no arquivo 'template.Rmarkdown' precisa 
 # ser no formato '**i**'.
-i <- 4 # Apenas para teste!
+i <- 1 # Apenas para teste!
 ###############################################################################################################
 glue('# {id[i]} {{-}}') %>% cat()
 
@@ -31,10 +31,9 @@ dts[[i]][-idx, ] %>%
 # Localização
 glue('## Localização {{-}}') %>% print()
 municipio_id <- obs[[i]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
-uf_id <- obs[[i]][, "estado_id"] %>% unique() %>% paste(collapse = "; ")
-# Substituir a sigla dos estados pelo seu nome
+uf_id <- obs[[i]][, "estado_id"] %>% unique() # Substituir a sigla dos estados pelo seu nome
 uf_id <- match(uf_id, estado_id$estado_id)
-uf_nome <- estado_id$estado_nome[uf_id]
+uf_nome <- estado_id$estado_nome[uf_id] %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, uf_nome)) %>% 
   pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 
@@ -51,13 +50,17 @@ if (n_coords != 0) {
       layer.name = id[i])@map %>% 
     leaflet::addMiniMap()
   n_obs_text <- ifelse(n_obs == 1, "observação", "observações")
-  glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}") %>% 
+  glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}.") %>% 
     cat()
   if (n_coords != n_obs) {
     out <- n_obs - n_coords
-    out_text <- ifelse(out == 1, "observação", "observações")
-    glue(" Destas, {out} {out_text} não possuem coordenadas espaciais.") %>% 
-      cat()
+    if (out == 1) {
+      glue(" Destas, {out} observação não possui coordenadas espaciais.") %>% 
+        cat()
+    } else {
+      glue(" Destas, {out} observações não possuem coordenadas espaciais.") %>% 
+        cat()
+    }
   }
 } else {
   m <- glue("As observações do conjunto de dados `{id[i]}` não possuem coordenadas espaciais.") %>% cat()

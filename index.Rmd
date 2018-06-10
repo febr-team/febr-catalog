@@ -24,6 +24,7 @@ favicon: "img/favicon.ico"
 #       replacement = ".css('background-color')", x = js[i], fixed = TRUE)
 # }
 # writeLines(text = js, con = file)
+
 # AFTER BUILDING THE BOOK, EDIT FILE '/catalog/libs/gitbook-2.6.7/js/plugin-search.js'
 js <- list.files(path = ".", recursive = TRUE)
 idx <- grepl(pattern = "/js/plugin-search.js", x = js)
@@ -144,7 +145,7 @@ dev.off()
 
 ```{r}
 j <- 1:length(dts)
-# j <- 40:45
+# j <- 146
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
