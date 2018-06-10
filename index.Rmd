@@ -104,6 +104,7 @@ load("data/obs.rda")
 ```
 
 ```{r stats, eval=FALSE, fig.asp=1}
+# Cria figura para publicação externa
 library(lattice)
 library(latticeExtra)
 library(raster)
