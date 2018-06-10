@@ -1,4 +1,8 @@
-i <- 4
+# Este arquivo é usado apenas para testes. O arquivo usado para compilação das páginas é 'template.Rmarkdown'.
+# O conteúdo dos dos arquivos é idêntico, exceto pelo índice 'i', que no arquivo 'template.Rmarkdown' precisa 
+# ser no formato '**i**'.
+i <- 4 # Apenas para teste!
+###############################################################################################################
 glue('# {id[i]} {{-}}') %>% cat()
 
 glue("<h2 style='font-style:italic;'>{dts[[i]][2, 2] %>% as.character()}</h2>") %>% cat()
@@ -27,8 +31,11 @@ dts[[i]][-idx, ] %>%
 # Localização
 glue('## Localização {{-}}') %>% print()
 municipio_id <- obs[[i]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
-estado_id <- obs[[i]][, "estado_id"] %>% unique() %>% paste(collapse = "; ")
-data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, estado_id)) %>% 
+uf_id <- obs[[i]][, "estado_id"] %>% unique() %>% paste(collapse = "; ")
+# Substituir a sigla dos estados pelo seu nome
+uf_id <- match(uf_id, estado_id$estado_id)
+uf_nome <- estado_id$estado_nome[uf_id]
+data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, uf_nome)) %>% 
   pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 
 n_obs <- nrow(obs[[i]])
@@ -42,7 +49,7 @@ if (n_coords != 0) {
     mapview(
       tmp, label = tmp$observacao_id, col.regions = "firebrick1", lwd = 1, col = "ivory", 
       layer.name = id[i])@map %>% 
-    addMiniMap()
+    leaflet::addMiniMap()
   glue("O conjunto de dados `{id[**i**]}` possui {n_obs} observações.") %>% 
     cat()
   if (n_coords != n_obs) {
