@@ -50,11 +50,13 @@ if (n_coords != 0) {
       tmp, label = tmp$observacao_id, col.regions = "firebrick1", lwd = 1, col = "ivory", 
       layer.name = id[i])@map %>% 
     leaflet::addMiniMap()
-  glue("O conjunto de dados `{id[**i**]}` possui {n_obs} observações.") %>% 
+  n_obs_text <- ifelse(n_obs == 1, "observação", "observações")
+  glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}") %>% 
     cat()
   if (n_coords != n_obs) {
     out <- n_obs - n_coords
-    glue(" Destas, {out} observações não possuem coordenadas espaciais.") %>% 
+    out_text <- ifelse(out == 1, "observação", "observações")
+    glue(" Destas, {out} {out_text} não possuem coordenadas espaciais.") %>% 
       cat()
   }
 } else {
