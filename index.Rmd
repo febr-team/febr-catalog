@@ -86,7 +86,7 @@ if (class(sheets_keys) == "try-error") {
 }
 save(sheets_keys, file = "data/sheets_keys.rda")
 dts <- febr::dataset(dataset = 'all')
-obs <- febr::observation(dataset = 'all', variable = "coord_desc")
+obs <- febr::observation(dataset = 'all', variable = "coord_desc", standardization = list(crs = "EPSG:4674"))
 save(dts, file = "data/dts.rda")
 save(obs, file = "data/obs.rda")
 
@@ -145,7 +145,7 @@ dev.off()
 
 ```{r}
 j <- 1:length(dts)
-# j <- 146
+# j <- 2
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
