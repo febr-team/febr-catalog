@@ -11,20 +11,6 @@ favicon: "img/favicon.ico"
 ---
 
 ```{r, eval=FALSE}
-# AFTER BUILDING THE BOOK, EDIT FILE '/docs/libs/gitbook-2.6.7/js/plugin-bookdown.js' TO MAKE SURE THAT THE
-# SITE HEADING BACKGROUND COLOR IS CORRECT.
-# js <- list.files(path = ".", recursive = TRUE)
-# idx <- grepl(pattern = "/js/plugin-bookdown.js", x = js)
-# file <- js[idx]
-# js <- readLines(con = file)
-# for (i in seq(length(js))) {
-#   js[i] <- 
-#     gsub(
-#       pattern = ".css('background-color', bookBody.css('background-color'))", 
-#       replacement = ".css('background-color')", x = js[i], fixed = TRUE)
-# }
-# writeLines(text = js, con = file)
-
 # AFTER BUILDING THE BOOK, EDIT FILE '/catalog/libs/gitbook-2.6.7/js/plugin-search.js'
 js <- list.files(path = ".", recursive = TRUE)
 idx <- grepl(pattern = "/js/plugin-search.js", x = js)
@@ -74,78 +60,17 @@ library(readr)
 library(googlesheets)
 ```
 
-```{r, eval=FALSE}
-# Run this code chunk only when disk data must be updated!!!
-key <- "18yP9Hpp8oMdbGsf6cVu4vkDv-Dj-j5gjEFgEXN-5H-Q"
-sheets_keys <- try(gs_key(key) %>% gs_read_csv(), TRUE)
-if (class(sheets_keys) == "try-error") {
-  url <- glue::glue("https://docs.google.com/spreadsheets/d/{key}/export?format=csv")
-  tempfile <- tempfile(fileext = "cvs")
-  download.file(url, destfile = tempfile)
-  sheets_keys <- readr::read_csv(tempfile)
-}
-save(sheets_keys, file = "data/sheets_keys.rda")
-dts <- febr::dataset(dataset = 'all')
-obs <- febr::observation(dataset = 'all', variable = "coord_desc", standardization = list(crs = "EPSG:4674"))
-save(dts, file = "data/dts.rda")
-save(obs, file = "data/obs.rda")
-
-# Planilha com siglas e nomes dos estados brasileiros
-estado_id <-
-  gs_key('1bTIcFLpnOefYs_BaegPC59kbF3gEugOXpYpnfyrDsDQ') %>% 
-  gs_read_csv(verbose = FALSE)
-save(estado_id, file = 'data/estado_id.rda')
-```
-
 ```{r}
-load('data/estado_id.rda')
-load("data/sheets_keys.rda")
-load("data/dts.rda")
-load("data/obs.rda")
+# Carregar dados do repositório-irmão `febr-data`
+load('../febr-data/data/uf.rda')
+load("../febr-data/data/febr-chaves.rda")
+load("../febr-data/data/dts.rda")
+load("../febr-data/data/obs.rda")
 ```
-
-```{r stats, eval=FALSE, fig.asp=1}
-# Cria figura para publicação externa
-library(lattice)
-library(latticeExtra)
-library(raster)
-library(rgeos)
-tmp_uf <- lapply(obs, function (x) summary(as.factor(x[["estado_id"]])))
-tmp_uf <- unlist(tmp_uf)
-tmp_uf <- c(by(tmp_uf, names(tmp_uf), sum))
-tmp_uf <- tmp_uf[-which(names(tmp_uf) == "NA's")]
-tmp_uf <- tmp_uf / sum(tmp_uf) * 100
-tmp_uf <- tmp_uf[order(tmp_uf)]
-p1 <- barchart(
-  tmp_uf, border = "ivory", col = "firebrick1", xlab = "Percent of total", ylab = "Federative unit",
-  xlim = c(0, extendrange(tmp_uf)[2])) + 
-  layer(panel.grid(v = -1, h = -1))
-# png("tmp/percent-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5) # abstract
-png("tmp/percent-uf.png", width = 480 * 3.2, height = 480 * 2 * 3, res = 72 * 2.5 * 3) # poster
-p1
-dev.off()
-br <- shapefile("~/projects/brazil/states.shp")
-crs <- CRS("+proj=utm +zone=22 +south +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-br <- spTransform(br, crs)
-br$area <- gArea(br, byid = TRUE) / (1000 * 1000 * 1000)
-idx <- match(br$sigla, names(tmp_uf))
-dens <- tmp_uf[idx] / br$area
-dens <- dens[order(dens)]
-p2 <- 
-  barchart(
-    dens, border = "ivory", col = "firebrick1", xlab = "Areal density", ylab = " ", 
-    xlim = c(0, extendrange(dens)[2])) + 
-  layer(panel.grid(v = -1, h = -1))
-# png("tmp/density-uf.png", width = 480, height = 480 * 2, res = 72 * 2.5) # abstract
-png("tmp/density-uf.png", width = 480 * 3.2, height = 480 * 2 * 3, res = 72 * 2.5 * 3) # poster
-p2
-dev.off()
-```
-
 
 ```{r}
 j <- 1:length(dts)
-# j <- 2
+j <- 1:10
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
