@@ -32,8 +32,8 @@ dts[[i]][-idx, ] %>%
 glue('## Localização {{-}}') %>% print()
 municipio_id <- obs[[i]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
 uf_id <- obs[[i]][, "estado_id"] %>% unique() # Substituir a sigla dos estados pelo seu nome
-uf_id <- match(uf_id, estado_id$estado_id)
-uf_nome <- estado_id$estado_nome[uf_id] %>% paste(collapse = "; ")
+uf_id <- match(uf_id, uf$estado_id)
+uf_nome <- uf$estado_nome[uf_id] %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, uf_nome)) %>% 
   pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 
