@@ -34,9 +34,9 @@ writeLines(text = js, con = file)
 <!-- <span class="label label-warning">Warning Label</span> -->
 <!-- <span class="label label-danger">Danger Label</span>  -->
 
-Exitem duas maneiras de navegar pelos conjuntos de dados disponíveis no ***febr***.
+Exitem duas maneiras de navegar pelos conjuntos de dados disponíveis no ___febr___.
 
-Primeiro, você pode usar o índice de conjuntos de dados localizado na lateral esquerda da página. Aqui, cada conjunto de dados é identificado pelo seu código identificador único registrado no ***febr***. Você pode navegar pelos conjuntos de dados no próprio índice ou usando os botões de navegação exibidos à esquerda e direita do corpo da página. Caso você queira alternar a visibilidade do índice, basta pressionar o primeiro botão da barra de ferramentas (Figura \@ref(fig:toolbar)) -- você também pode pressionar a tecla `S` no teclado para obter o mesmo efeito.
+Primeiro, você pode usar o índice de conjuntos de dados localizado na lateral esquerda da página. Aqui, cada conjunto de dados é identificado pelo seu código identificador único registrado no ___febr___. Você pode navegar pelos conjuntos de dados no próprio índice ou usando os botões de navegação exibidos à esquerda e direita do corpo da página. Caso você queira alternar a visibilidade do índice, basta pressionar o primeiro botão da barra de ferramentas (Figura \@ref(fig:toolbar)) -- você também pode pressionar a tecla `S` no teclado para obter o mesmo efeito.
 
 ```{r toolbar, echo=FALSE, fig.align='center', fig.cap="Barra de ferramentas."}
 library(knitr)
