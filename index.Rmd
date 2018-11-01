@@ -10,21 +10,6 @@ apple-touch-icon: "img/apple-touch-icon.png"
 favicon: "img/favicon.ico"
 ---
 
-```{r, eval=FALSE}
-# AFTER BUILDING THE BOOK, EDIT FILE '/catalog/libs/gitbook-2.6.7/js/plugin-search.js'
-js <- list.files(path = ".", recursive = TRUE)
-idx <- grepl(pattern = "/js/plugin-search.js", x = js)
-file <- js[idx]
-js <- readLines(con = file)
-for (i in seq(length(js))) {
-  js[i] <- 
-    gsub(
-      pattern = "'placeholder': 'Type to search'", 
-      replacement = "'placeholder': 'Escreva para pesquisar'", x = js[i], fixed = TRUE)
-}
-writeLines(text = js, con = file)
-```
-
 # Instruções de uso {-}
 
 <!-- <span class="label label-default">Default Label</span> -->
@@ -69,8 +54,16 @@ load("../febr-data/data/obs.rda")
 ```
 
 ```{r}
+# Ordenar conjuntos de dados alfabeticamente sengundo dataset_id
+idx <- match(1:nrow(sheets_keys), order(sheets_keys$ctb))
+dts <- dts[order(idx)]
+obs <- obs[order(idx)]
+sheets_keys <- sheets_keys[order(idx), ]
+```
+
+```{r}
 j <- 1:length(dts)
-j <- 1:10
+# j <- 1:10 # for testing
 dts <- dts[j]
 obs <- obs[j]
 n <- length(dts)
