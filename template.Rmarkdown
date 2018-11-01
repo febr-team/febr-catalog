@@ -48,8 +48,8 @@ if (n_coords != 0) {
   proj4string(tmp) <- CRS("+init=epsg:4674")
   m <- 
     mapview(
-      tmp, label = tmp$observacao_id, col.regions = "firebrick1", lwd = 1, col = "ivory", 
-      layer.name = id[**i**])@map %>% 
+      tmp[, c("observacao_id", "observacao_data")], label = tmp$observacao_id, col.regions = "firebrick1", 
+      lwd = 1, col = "ivory", layer.name = id[**i**])@map %>% 
     leaflet::addMiniMap()
   n_obs_text <- ifelse(n_obs == 1, "observação", "observações")
   glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}.") %>% 
