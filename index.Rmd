@@ -36,29 +36,23 @@ A barra de ferramentas possui outros dois botões. O primeiro deles serve para v
 knitr::opts_chunk$set(
   dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh', echo = FALSE)
 library(magrittr)
-library(pander)
 library(glue)
 library(febr)
-library(sp)
 library(mapview)
-library(readr)
-library(googlesheets)
 ```
 
 ```{r}
 # Carregar dados do repositório-irmão `febr-data`
-load('../febr-data/data/uf.rda')
-load("../febr-data/data/febr-chaves.rda")
-load("../febr-data/data/dts.rda")
-load("../febr-data/data/obs.rda")
+load('../febr-data/data/r/uf.rda')
+load("../febr-data/data/r/febr-chaves.rda")
+load("../febr-data/data/r/dts.rda")
+load("../febr-data/data/r/obs.rda")
 ```
 
 ```{r}
-# Ordenar conjuntos de dados alfabeticamente sengundo dataset_id
-idx <- match(1:nrow(sheets_keys), order(sheets_keys$ctb))
-dts <- dts[order(idx)]
-obs <- obs[order(idx)]
-sheets_keys <- sheets_keys[order(idx), ]
+# Ordenar chaves de identificação sengundo dataset_id
+sheets_keys %<>% 
+  dplyr::arrange(ctb)
 ```
 
 ```{r}
