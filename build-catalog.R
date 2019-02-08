@@ -21,5 +21,8 @@ if(Sys.info()[1] == "Linux") {
   system("cd catalog && ") # Matheus, descobrir e inserir comando do Windows para zipar!
 }
 
+# Open local catalog in browser
+browseURL("catalog/index.html")
+
 # Open server portal
 browseURL("http://www.suporte.cpd.ufsm.br/newftp/")
