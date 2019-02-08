@@ -50,12 +50,6 @@ load("../febr-data/data/r/obs.rda")
 ```
 
 ```{r}
-# Ordenar chaves de identificação sengundo dataset_id
-sheets_keys %<>% 
-  dplyr::arrange(ctb)
-```
-
-```{r}
 j <- 1:length(dts)
 # j <- 1:10 # for testing
 dts <- dts[j]
