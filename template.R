@@ -16,7 +16,8 @@ glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar 
 glue('## Autoria {{-}}') %>% cat()
 idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[i]][["item"]])
 dts[[i]][idx, ] %>% 
-  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+  pander::pandoc.table(
+    split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
 glue('## Informações gerais {{-}}') %>% cat()
 idx <- match(
@@ -26,7 +27,8 @@ idx <- match(
     "categoria_vcge", "dataset_id", "dataset_titulo", "dataset_descricao"), 
   dts[[i]][["item"]])
 dts[[i]][-idx, ] %>%
-  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+  pander::pandoc.table(
+    split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
 # Localização
 glue('## Localização {{-}}') %>% print()
@@ -35,17 +37,17 @@ uf_id <- obs[[i]][, "estado_id"] %>% unique() # Substituir a sigla dos estados p
 uf_id <- match(uf_id, uf$estado_id)
 uf_nome <- uf$estado_nome[uf_id] %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, uf_nome)) %>% 
-  pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
+  pander::pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 
 n_obs <- nrow(obs[[i]])
 n_coords <- sum(!is.na(obs[[i]]$coord_x))
 if (n_coords != 0) {
   tmp <- obs[[i]]
   tmp <- tmp[!is.na(tmp$coord_x), ]
-  coordinates(tmp) <- ~ coord_x + coord_y
-  proj4string(tmp) <- CRS("+init=epsg:4674")
+  sp::coordinates(tmp) <- ~ coord_x + coord_y
+  sp::proj4string(tmp) <- sp::CRS("+init=epsg:4674")
   m <- 
-    mapview(
+    mapview::mapview(
       tmp[, c("observacao_id", "observacao_data")], label = tmp$observacao_id, col.regions = "firebrick1", 
       lwd = 1, col = "ivory", layer.name = id[i])@map %>% 
     leaflet::addMiniMap()

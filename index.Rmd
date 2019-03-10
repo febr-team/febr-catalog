@@ -36,9 +36,6 @@ A barra de ferramentas possui outros dois botões. O primeiro deles serve para v
 knitr::opts_chunk$set(
   dev.args = list(bg = 'transparent'), out.width = '100%', out.height = '80vh', echo = FALSE)
 library(magrittr)
-library(glue)
-library(febr)
-library(mapview)
 ```
 
 ```{r}
@@ -51,8 +48,8 @@ load("../febr-data/data/r/obs.rda")
 
 ```{r}
 # Ordenar chaves de identificação sengundo dataset_id
-sheets_keys %<>% 
-  dplyr::arrange(ctb)
+# sheets_keys %<>% 
+  # dplyr::arrange(ctb)
 ```
 
 ```{r}

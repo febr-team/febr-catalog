@@ -1,23 +1,24 @@
 ```{r, results='asis'}
 # dataset_id
-glue('# {id[**i**]} {{-}}  \n\n') %>% cat()
+glue::glue('# {id[**i**]} {{-}}  \n\n') %>% cat()
 
 # dataset_titulo
-glue("<h2 style='font-style:italic;'>{dts[[**i**]][2, 2] %>% as.character()}</h2>") %>% cat()
+glue::glue("<h2 style='font-style:italic;'>{dts[[**i**]][2, 2] %>% as.character()}</h2>") %>% cat()
 
 # dataset_descricao
-glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
-link <- glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[**i**]}')
-glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
+glue::glue("{dts[[**i**]][3, 2] %>% as.character()}") %>% cat()
+link <- glue::glue('https://drive.google.com/drive/folders/{sheets_keys$compartilha[**i**]}')
+glue::glue('<form action="{link}" target="_blank"><input type="submit" value="Acessar dados"/></form>') %>%
   cat()
 
-glue('## Autoria {{-}}  \n\n') %>% cat()
+glue::glue('## Autoria {{-}}  \n\n') %>% cat()
 
 idx <- match(c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url"), dts[[**i**]][["campo"]])
 dts[[**i**]][idx, ] %>% 
-  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+  pander::pandoc.table(
+    split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
-glue('## Informações gerais {{-}}  \n\n') %>% cat()
+glue::glue('## Informações gerais {{-}}  \n\n') %>% cat()
 
 idx <- match(
   c("autor_nome", "autor_email", "organizacao_nome", "organizacao_url", "organizacao_pais_id", 
@@ -26,16 +27,17 @@ idx <- match(
     "categoria_vcge", "dataset_id", "dataset_titulo", "dataset_descricao"), 
   dts[[**i**]][["campo"]])
 dts[[**i**]][-idx, ] %>%
-  pandoc.table(split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
+  pander::pandoc.table(
+    split.tables = Inf, justify = 'left', col.names = c('campo', 'valor'), row.names = FALSE)
 
-glue('## Localização {{-}}  \n\n') %>% print()
+glue::glue('## Localização {{-}}  \n\n') %>% print()
 
 municipio_id <- obs[[**i**]][, "municipio_id"] %>% unique() %>% paste(collapse = "; ")
 uf_id <- obs[[**i**]][, "estado_id"] %>% unique() # Substituir a sigla dos estados pelo seu nome
 uf_id <- match(uf_id, uf$estado_id)
 uf_nome <- uf$estado_nome[uf_id] %>% paste(collapse = "; ")
 data.frame(campo = c("municipio_id", "estado_id"), valor = c(municipio_id, uf_nome)) %>% 
-  pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
+  pander::pandoc.table(split.tables = Inf, justify = 'left', row.names = FALSE)
 ```
 
 ```{r, results='asis'}
@@ -44,44 +46,44 @@ n_coords <- sum(!is.na(obs[[**i**]]$coord_x))
 if (n_coords != 0) {
   tmp <- obs[[**i**]]
   tmp <- tmp[!is.na(tmp$coord_x), ]
-  coordinates(tmp) <- ~ coord_x + coord_y
-  proj4string(tmp) <- CRS("+init=epsg:4674")
+  sp::coordinates(tmp) <- ~ coord_x + coord_y
+  sp::proj4string(tmp) <- sp::CRS("+init=epsg:4674")
   m <- 
-    mapview(
+    mapview::mapview(
       tmp[, c("observacao_id", "observacao_data")], label = tmp$observacao_id, col.regions = "firebrick1", 
       lwd = 1, col = "ivory", layer.name = id[**i**])@map %>% 
     leaflet::addMiniMap()
   n_obs_text <- ifelse(n_obs == 1, "observação", "observações")
-  glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}.") %>% 
+  glue::glue("O conjunto de dados `{id[**i**]}` possui {n_obs} {n_obs_text}.") %>% 
     cat()
   if (n_coords != n_obs) {
     out <- n_obs - n_coords
     if (out == 1) {
-      glue(" Destas, {out} observação não possui coordenadas espaciais.") %>% 
+      glue::glue(" Destas, {out} observação não possui coordenadas espaciais.") %>% 
         cat()
     } else {
-      glue(" Destas, {out} observações não possuem coordenadas espaciais.") %>% 
+      glue::glue(" Destas, {out} observações não possuem coordenadas espaciais.") %>% 
         cat()
     }
   }
 } else {
-  m <- glue("As observações do conjunto de dados `{id[**i**]}` não possuem coordenadas espaciais.")
+  m <- glue::glue("As observações do conjunto de dados `{id[**i**]}` não possuem coordenadas espaciais.")
 }
 m
 ```
 
 ```{r, results='asis'}
-glue('<hr>') %>% cat()
+glue::glue('<hr>') %>% cat()
 
-glue('#### Melhorias e Correções {{-}}  \n\n') %>% cat()
+glue::glue('#### Melhorias e Correções {{-}}  \n\n') %>% cat()
 
-glue('Encontrou um problema ou erro nos dados? Acesse o conjunto de dados e proponha as melhorias e correções necessárias. Afinal de contas, o ___febr___ é um repositório livre de dados abertos!') %>% cat()
+glue::glue('Encontrou um problema ou erro nos dados? Acesse o conjunto de dados e proponha as melhorias e correções necessárias. Afinal de contas, o ___febr___ é um repositório livre de dados abertos!') %>% cat()
 
-glue('<hr>') %>% cat()
+glue::glue('<hr>') %>% cat()
 
-glue('#### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
+glue::glue('#### Sugestões, Dúvidas e Reclamações {{-}}  \n\n') %>% cat()
 
-glue('Você tem alguma sugestão, dúvida ou reclamação sobre o ___febr___? Sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder em até 24 horas.') %>% cat()
+glue::glue('Você tem alguma sugestão, dúvida ou reclamação sobre o ___febr___? Sinta-se à vontade para entrar em contato conosco via febr-forum@googlegroups.com. Nós faremos o possível para responder em até 24 horas.') %>% cat()
 ```
 <!-- Keep two lines empty -->
 
